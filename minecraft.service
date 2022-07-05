@@ -1,0 +1,10 @@
+[Unit]
+Description=Minecraft
+
+[Service]
+ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar /etc/minecraft/server.jar nogui --universe /var/minecraft
+User=minecraft
+Group=minecraft
+
+[Install]
+WantedBy=multi-user.target
