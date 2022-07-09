@@ -1,0 +1,11 @@
+[Unit]
+Description=Minecraft server
+
+[Service]
+WorkingDirectory=/opt/minecraft
+ExecStart=/opt/minecraft/minecraft.sh
+User=minecraft
+Group=minecraft
+
+[Install]
+WantedBy=multi-user.target

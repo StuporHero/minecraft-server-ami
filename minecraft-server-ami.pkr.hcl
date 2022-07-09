@@ -30,6 +30,12 @@ source "amazon-ebs" "minecraft-server-ami" {
     owners = ["137112412989"]
     most_recent = true
   }
+  launch_block_device_mappings {
+    device_name = "/dev/sdf"
+    volume_type = "gp2"
+    volume_size = 4
+    delete_on_termination = true
+  }
 }
 
 build {
@@ -38,22 +44,37 @@ build {
   ]
 
   provisioner "file" {
-    source = "eula.txt"
+    source = "files/config"
+    destination = "/tmp/config"
+  }
+
+  provisioner "file" {
+    source = "files/eula.txt"
     destination = "/tmp/eula.txt"
   }
 
   provisioner "file" {
-    source = "minecraft.service"
+    source = "files/minecraft.service"
     destination = "/tmp/minecraft.service"
   }
 
+  provisioner "file" {
+    source = "files/minecraft.sh"
+    destination = "/tmp/minecraft.sh"
+  }
+
+  provisioner "file" {
+    source = "files/server.properties"
+    destination = "/tmp/server.properties"
+  }
+
   provisioner "shell" {
-    script = "root.sh"
+    script = "01-root.sh"
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo {{ .Path }}"
   }
 
   provisioner "shell" {
-    script = "minecraft.sh"
+    script = "02-minecraft.sh"
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -iu minecraft {{ .Path }} ${var.download_url}"
   }
 }

@@ -1,0 +1,3 @@
+# Set values for the minecraft server
+MINECRAFT_UNIVERSE=/var/minecraft/universe
+MINECRAFT_WORLD=${MINECRAFT_WORLD:-default}
