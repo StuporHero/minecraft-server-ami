@@ -11,6 +11,7 @@ cd /opt/minecraft
 wget $download_url
 mv  /tmp/eula.txt /tmp/minecraft.sh ./
 mv /tmp/config /tmp/server.properties /etc/minecraft/
+chmod +x ./minecraft.sh
 ln -s /etc/minecraft config
 ln -s /var/log/minecraft logs
 ln -s /etc/minecraft/server.properties server.properties

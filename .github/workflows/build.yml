@@ -12,7 +12,7 @@ jobs:
     container:
       image: hashicorp/packer
       env:
-        # Minecraft 1.19
+        PKR_VAR_version: '1.19'
         PKR_VAR_download_url: https://launcher.mojang.com/v1/objects/e00c4052dac1d59a1188b2aa9d5a87113aaf1122/server.jar
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

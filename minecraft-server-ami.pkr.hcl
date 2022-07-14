@@ -1,3 +1,7 @@
+variable "version" {
+  type = string
+}
+
 variable "download_url" {
   type = string
 }
@@ -12,7 +16,7 @@ packer {
 }
 
 source "amazon-ebs" "minecraft-server-ami" {
-  ami_name = "minecraft-server-ami-{{timestamp}}"
+  ami_name = "minecraft-${var.version}-{{timestamp}}"
   ssh_username = "ec2-user"
   spot_instance_types = [
     "t3.micro",
