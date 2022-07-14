@@ -9,7 +9,7 @@ sdk install java 22.1.0.r17-grl
 # Install minecraft
 cd /opt/minecraft
 wget $download_url
-mv  /tmp/eula.txt ./
+mv  /tmp/eula.txt /tmp/minecraft.sh ./
 mv /tmp/config /tmp/server.properties /etc/minecraft/
 ln -s /etc/minecraft config
 ln -s /var/log/minecraft logs

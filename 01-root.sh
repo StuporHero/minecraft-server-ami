@@ -1,7 +1,8 @@
 #!/bin/bash -xe
 
-# Install jq
-yum install -y jq
+# Install prerequisites
+yum install -y jq amazon-efs-utils
+python3 -m pip install botocore
 
 # Configure swap
 lsblk
@@ -14,7 +15,7 @@ swapon -a
 useradd -m -s /bin/bash minecraft
 mkdir /var/minecraft /var/log/minecraft /opt/minecraft /etc/minecraft
 chown minecraft:minecraft /var/minecraft /var/log/minecraft /opt/minecraft /etc/minecraft
-chown minecraft:minecraft /tmp/eula.txt /tmp/config /tmp/server.properties
+chown minecraft:minecraft /tmp/eula.txt /tmp/config /tmp/server.properties /tmp/minecraft.sh
 
 # Create the systemd service for minecraft
 chown root:root /tmp/minecraft.service
