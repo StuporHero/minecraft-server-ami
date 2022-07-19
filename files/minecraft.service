@@ -1,5 +1,6 @@
 [Unit]
 Description=Minecraft server
+After=cloud-final.service
 
 [Service]
 WorkingDirectory=/opt/minecraft
@@ -8,4 +9,4 @@ User=minecraft
 Group=minecraft
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=cloud-init.target
