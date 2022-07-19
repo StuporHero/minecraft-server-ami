@@ -22,3 +22,6 @@ chown root:root /tmp/minecraft.service
 mv /tmp/minecraft.service /etc/systemd/system/minecraft.service
 systemctl daemon-reload
 systemctl enable minecraft
+
+# Clean cloud-init
+cloud-init clean
