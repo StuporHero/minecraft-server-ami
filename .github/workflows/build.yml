@@ -13,7 +13,7 @@ jobs:
       image: hashicorp/packer
       env:
         PKR_VAR_version: '1.19'
-        PKR_VAR_download_url: https://launcher.mojang.com/v1/objects/e00c4052dac1d59a1188b2aa9d5a87113aaf1122/server.jar
+        PKR_VAR_download_url: https://api.papermc.io/v2/projects/paper/versions/1.19/builds/68/downloads/paper-1.19-68.jar
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: us-east-1

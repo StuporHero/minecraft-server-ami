@@ -8,7 +8,7 @@ sdk install java 22.1.0.r17-grl
 
 # Install minecraft
 cd /opt/minecraft
-wget $download_url
+wget -O server.jar $download_url
 mv  /tmp/eula.txt /tmp/minecraft.sh ./
 mv /tmp/config /tmp/server.properties /etc/minecraft/
 chmod +x ./minecraft.sh
