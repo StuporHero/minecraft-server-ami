@@ -10,8 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: hashicorp/packer
+      image: hashicorp/packer:1.8.2
       env:
+        PKR_VAR_server: 'paper'
         PKR_VAR_version: '1.19'
         PKR_VAR_download_url: https://api.papermc.io/v2/projects/paper/versions/1.19/builds/68/downloads/paper-1.19-68.jar
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -19,7 +20,32 @@ jobs:
         AWS_REGION: us-east-1
     steps:
       - uses: actions/checkout@v3
-      - name: Packer build
+      - name: Setup testinfra
+        run: |
+          apk add python3 py3-pip
+          pip install -r requirements.txt
+      - name: Packer init and validate
         run: |
           packer init minecraft-server-ami.pkr.hcl
-          packer build minecraft-server-ami.pkr.hcl
+          packer validate minecraft-server-ami.pkr.hcl
+      - name: Packer build (retry)
+        shell: bash --noprofile --norc -o pipefail {0}
+        run: |
+          timeout=1000
+          attempt=0
+          while [[ $attempt < 5 ]]
+          do
+            packer build minecraft-server-ami.pkr.hcl
+            exitCode=$?
+
+            if [[ $exitCode == 0 ]]
+            then
+              break
+            fi
+
+            sleep $timeout
+            attempt=$(( attempt + 1 ))
+            timeout=$(( timeout * 2 ))
+          done
+
+          exit $exitCode

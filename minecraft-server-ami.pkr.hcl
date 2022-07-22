@@ -1,3 +1,7 @@
+variable "server" {
+  type = string
+}
+
 variable "version" {
   type = string
 }
@@ -16,9 +20,9 @@ packer {
 }
 
 source "amazon-ebs" "minecraft-server-ami" {
-  ami_name = "minecraft-${var.version}-{{timestamp}}"
+  ami_name = "${var.server}-${var.version}-{{timestamp}}"
   ssh_username = "ec2-user"
-  ssh_timeout = "10m"
+  ssh_timeout = "3m"
   spot_instance_types = [
     "t3.micro",
     "t3a.micro",
@@ -81,5 +85,14 @@ build {
   provisioner "shell" {
     script = "02-minecraft.sh"
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -iu minecraft {{ .Path }} ${var.download_url}"
+  }
+
+  provisioner "shell-local" {
+    inline = [
+      "ssh=$(mktemp -d)",
+      "echo '${build.SSHPrivateKey}' > $ssh/id_rsa",
+      "pytest --ssh-identity-file=$ssh/id_rsa --hosts=${build.User}@${build.Host}",
+      "rm -rf $ssh"
+    ]
   }
 }
