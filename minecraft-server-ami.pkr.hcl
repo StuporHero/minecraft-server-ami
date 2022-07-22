@@ -22,7 +22,7 @@ packer {
 source "amazon-ebs" "minecraft-server-ami" {
   ami_name = "${var.server}-${var.version}-{{timestamp}}"
   ssh_username = "ec2-user"
-  ssh_timeout = "3m"
+  ssh_interface = "public_ip"
   spot_instance_types = [
     "t3.micro",
     "t3a.micro",

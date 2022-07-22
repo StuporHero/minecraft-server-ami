@@ -24,28 +24,8 @@ jobs:
         run: |
           apk add python3 py3-pip
           pip install -r requirements.txt
-      - name: Packer init and validate
+      - name: Packer build
         run: |
           packer init minecraft-server-ami.pkr.hcl
           packer validate minecraft-server-ami.pkr.hcl
-      - name: Packer build (retry)
-        shell: bash --noprofile --norc -o pipefail {0}
-        run: |
-          timeout=1000
-          attempt=0
-          while [[ $attempt < 5 ]]
-          do
-            packer build minecraft-server-ami.pkr.hcl
-            exitCode=$?
-
-            if [[ $exitCode == 0 ]]
-            then
-              break
-            fi
-
-            sleep $timeout
-            attempt=$(( attempt + 1 ))
-            timeout=$(( timeout * 2 ))
-          done
-
-          exit $exitCode
+          packer build minecraft-server-ami.pkr.hcl
