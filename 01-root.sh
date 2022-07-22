@@ -18,7 +18,7 @@ chown minecraft:minecraft /var/minecraft /var/log/minecraft /opt/minecraft /etc/
 chown minecraft:minecraft /tmp/eula.txt /tmp/config /tmp/server.properties /tmp/minecraft.sh
 
 # Prepare the hugepages script (runs before minecraft)
-chmod root:root /tmp/hugepages.sh
+chown root:root /tmp/hugepages.sh
 chmod 774 /tmp/hugepages.sh
 mv /tmp/hugepages.sh /opt/minecraft/
 
