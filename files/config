@@ -1,1 +1,11 @@
-# Set values for the minecraft server
+# Set memory value; values is in MiB
+TOTAL_MEMORY_SIZE=$(free -m | grep Mem: | awk '{print $2}')
+
+# Leaves room for the OS and JVM bits other than the heap
+HEAP_SIZE=$((TOTAL_MEMORY_SIZE - 2048))M
+
+# A custom Minecraft world may be added to this file through user_data.
+# For example:
+
+# #!/usr/bin/env bash
+# echo 'MINECRAFT_WORLD=custom' >> /etc/minecraft/config

@@ -17,6 +17,11 @@ mkdir /var/minecraft /var/log/minecraft /opt/minecraft /etc/minecraft
 chown minecraft:minecraft /var/minecraft /var/log/minecraft /opt/minecraft /etc/minecraft
 chown minecraft:minecraft /tmp/eula.txt /tmp/config /tmp/server.properties /tmp/minecraft.sh
 
+# Prepare the hugepages script (runs before minecraft)
+chmod root:root /tmp/hugepages.sh
+chmod 774 /tmp/hugepages.sh
+mv /tmp/hugepages.sh /opt/minecraft/
+
 # Create the systemd service for minecraft
 chown root:root /tmp/minecraft.service
 mv /tmp/minecraft.service /etc/systemd/system/minecraft.service

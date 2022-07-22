@@ -68,6 +68,11 @@ build {
   }
 
   provisioner "file" {
+    source = "files/hugepages.sh"
+    destination = "/tmp/hugepages.sh"
+  }
+
+  provisioner "file" {
     source = "files/minecraft.sh"
     destination = "/tmp/minecraft.sh"
   }

@@ -4,6 +4,5 @@ source ./config/config
 source $HOME/.sdkman/bin/sdkman-init.sh
 
 MINECRAFT_WORLD=${MINECRAFT_WORLD:-default}
-JDK_JAVA_OPTIONS=${JDK_JAVA_OPTIONS:-'-Xms1024M -Xmx2048M'}
 
-java -jar server.jar --nogui --universe /var/minecraft/universe --world $MINECRAFT_WORLD
+exec java -XX:+UseLargePages -XX:+UseZGC -XX:+AlwaysPreTouch -Xms$HEAP_SIZE -Xmx$HEAP_SIZE -jar server.jar --nogui --universe /var/minecraft/universe --world $MINECRAFT_WORLD

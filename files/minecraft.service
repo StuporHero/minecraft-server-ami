@@ -4,9 +4,11 @@ After=cloud-final.service
 
 [Service]
 WorkingDirectory=/opt/minecraft
-ExecStart=/opt/minecraft/minecraft.sh
+ExecStartPre=/opt/minecraft/hugepages.sh
+PermissionsStartOnly=true
 User=minecraft
 Group=minecraft
+ExecStart=/opt/minecraft/minecraft.sh
 
 [Install]
 WantedBy=cloud-init.target
