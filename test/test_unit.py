@@ -32,3 +32,9 @@ def test_should_have_executable_file_hugepages_sh_that_belongs_to_root(host):
     assert file.user == 'root'
     assert file.group == 'root'
     assert file.mode == 0o774
+
+
+def test_user_minecraft_should_have_java_17_available_with_no_special_commands(host):
+    output = host.check_output('sudo -iu minecraft java -version')
+    assert 'OpenJDK' in output
+    assert '"17.0.3"' in output
