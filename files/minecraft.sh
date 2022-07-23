@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 source ./config/config
-source $HOME/.sdkman/bin/sdkman-init.sh
 
 MINECRAFT_WORLD=${MINECRAFT_WORLD:-default}
 
