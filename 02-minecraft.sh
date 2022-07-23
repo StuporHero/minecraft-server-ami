@@ -3,7 +3,6 @@ download_url=$1
 
 # Install java
 curl -s "https://get.sdkman.io" | bash
-echo 'source $HOME/.sdkman/bin/sdkma-init.sh' >> $HOME/.bash_profile
 source $HOME/.sdkman/bin/sdkman-init.sh
 sdk install java 22.1.0.r17-grl
 
