@@ -96,7 +96,7 @@ build {
     inline = [
       "ssh=$(mktemp -d)",
       "echo '${build.SSHPrivateKey}' > $ssh/id_rsa",
-      "pytest --ssh-identity-file=$ssh/id_rsa --hosts=${build.User}@${build.Host}",
+      "pytest --ssh-identity-file=$ssh/id_rsa --hosts=${build.User}@${build.Host} test/test_build.py",
       "rm -rf $ssh"
     ]
   }

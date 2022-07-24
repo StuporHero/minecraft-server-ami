@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ex
+
 source ./config/config
 
 HUGE_PAGE_SIZE=$(grep Hugepagesize /proc/meminfo | awk '{print $2}')
@@ -16,3 +18,4 @@ fi
 PAGES_TO_ALLOCATE=$(((TOTAL_MEMORY_SIZE - 1024) / $HUGE_PAGE_SIZE))
 
 echo $PAGES_TO_ALLOCATE > /proc/sys/vm/nr_hugepages
+exec test $(cat /proc/sys/vm/nr_hugepages) = "$PAGES_TO_ALLOCATE"

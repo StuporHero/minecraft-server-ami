@@ -12,7 +12,10 @@ def test_should_have_minecraft_group_with_gid_1001(host):
 
 
 def test_should_have_service_minecraft_that_is_enabled(host):
-    assert host.service('minecraft').is_enabled
+    service = host.service('minecraft')
+    with host.sudo():
+        assert service.is_valid
+    assert service.is_enabled
 
 
 def test_should_have_cloud_init_enabled(host):
