@@ -17,5 +17,5 @@ fi
 
 PAGES_TO_ALLOCATE=$(((TOTAL_MEMORY_SIZE - 1024) / $HUGE_PAGE_SIZE))
 
-echo $PAGES_TO_ALLOCATE > /proc/sys/vm/nr_hugepages
+sysctl -w vm.nr_hugepages=$PAGES_TO_ALLOCATE
 exec test $(cat /proc/sys/vm/nr_hugepages) = "$PAGES_TO_ALLOCATE"
