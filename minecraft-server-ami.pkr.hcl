@@ -100,4 +100,6 @@ build {
       "rm -rf $ssh"
     ]
   }
+
+  post-processor "manifest" {}
 }

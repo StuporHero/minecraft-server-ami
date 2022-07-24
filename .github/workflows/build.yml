@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      ami: ${{ steps.manifest.outputs.ami }}
     container:
       image: hashicorp/packer:1.8.2
       env:
@@ -29,3 +31,18 @@ jobs:
           packer init minecraft-server-ami.pkr.hcl
           packer validate minecraft-server-ami.pkr.hcl
           packer build minecraft-server-ami.pkr.hcl
+      - name: Parse Manifest
+        id: manifest
+        run: |
+          apk add jq
+          ami=$(jq -r '.builds[-1].artifact_id' packer-manifest.json | cut -d ":" -f2)
+          echo "::set-output name=ami::$ami"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    container:
+      image: hashicorp/packer:1.8.2
+    steps:
+      - name: Test the output is wired correctly
+        run: echo ${{needs.build.outputs.ami}}
