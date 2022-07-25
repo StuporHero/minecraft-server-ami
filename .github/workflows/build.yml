@@ -43,6 +43,19 @@ jobs:
     needs: build
     container:
       image: hashicorp/packer:1.8.2
+      env:
+        PKR_VAR_ami: ${{ needs.build.outputs.ami }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1
     steps:
-      - name: Test the output is wired correctly
-        run: echo ${{needs.build.outputs.ami}}
+      - uses: actions/checkout@v3
+      - name: Setup testinfra
+        run: |
+          apk add python3 py3-pip
+          pip install -r requirements.txt
+      - name: Test the Image
+        run: |
+          packer init ami-test.pkr.hcl
+          packer validate ami-test.pkr.hcl
+          packer build ami-test.pkr.hcl
