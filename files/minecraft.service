@@ -9,6 +9,7 @@ PermissionsStartOnly=true
 User=minecraft
 Group=minecraft
 ExecStart=/opt/minecraft/minecraft.sh
+Restart=always
 
 [Install]
 WantedBy=cloud-init.target
