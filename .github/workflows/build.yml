@@ -92,3 +92,8 @@ jobs:
         with:
           name: Vulnerability report
           path: vulnerabilities.txt
+      - name: Upload licenses report
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: Licenses report
+          path: licenses.txt

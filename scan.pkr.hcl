@@ -42,7 +42,8 @@ build {
     inline = [
       "curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.30.4",
       "sudo /usr/local/bin/trivy rootfs --format cyclonedx --no-progress --output sbom.json --security-checks vuln /",
-      "sudo /usr/local/bin/trivy rootfs --format table  --ignore-unfixed --no-progress --output vulnerabilities.txt --security-checks vuln /"
+      "sudo /usr/local/bin/trivy rootfs --format table --ignore-unfixed --no-progress --output vulnerabilities.txt --security-checks vuln /",
+      "sudo /usr/local/bin/trivy rootfs --format table --no-progress --output licenses.txt --security-checks license /"
     ]
   }
 
@@ -55,6 +56,12 @@ build {
   provisioner "file" {
     source = "vulnerabilities.txt"
     destination = "vulnerabilities.txt"
+    direction = "download"
+  }
+
+  provisioner "file" {
+    source = "licenses.txt"
+    destination = "licenses.txt"
     direction = "download"
   }
 }
