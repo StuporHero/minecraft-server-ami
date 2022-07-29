@@ -1,5 +1,10 @@
 #!/bin/bash -xe
 
+# Even though cloud-init supposedly runs yum update,
+# it seems to not actually update everything, so
+# inlcuding this here for good measure.
+yum update -y
+
 # Install prerequisites
 yum install -y jq amazon-efs-utils
 python3 -m pip install botocore
