@@ -37,6 +37,11 @@ jobs:
           apk add jq
           ami=$(jq -r '.builds[-1].artifact_id' packer-manifest.json | cut -d ":" -f2)
           echo "::set-output name=ami::$ami"
+      - name: Upload manifest
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: Packer manifest
+          path: packer-manifest.json
 
   test:
     runs-on: ubuntu-latest
@@ -77,3 +82,13 @@ jobs:
           packer init scan.pkr.hcl
           packer validate scan.pkr.hcl
           packer build scan.pkr.hcl
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: SBOM
+          path: sbom.json
+      - name: Upload vulnerability report
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: Vulnerability report
+          path: vulnerabilities.txt
